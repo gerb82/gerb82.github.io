@@ -1,0 +1,13 @@
+{
+  "name": "gerb82.github.io",
+  "scripts": {},
+  "version": "0.0.1",
+  "description": "Collection of my experiments and commonly used tools",
+  "repository": "https://github.com/gerb82/gerb82.github.io.git",
+  "author": "gerb82",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "website"
+  ]
+}

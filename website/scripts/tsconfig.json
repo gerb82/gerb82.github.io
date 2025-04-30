@@ -1,0 +1,12 @@
+{
+  "include": ["./**/*", "../site-root.d.ts", "../engine.config.ts"],
+  "exclude": [],
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "skipLibCheck": false
+  }
+}

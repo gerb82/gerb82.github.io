@@ -1,0 +1,33 @@
+@@REPLACER__IMPORTS
+import { BrowserRouter, Routes, Route, StaticRouter } from 'react-router'
+import App from '@@REPLACER_APP_ROOT_IMPORT'
+import { StrictMode } from 'react';
+
+export const PageList = [@@REPLACER__ALL_PAGES]
+
+export function RenderSite(@@Backend{{ {location}: {location: string} }}) {
+  return (
+    <App>
+      @@IsStrict{{<StrictMode>}}
+        @@Backend{{
+          <StaticRouter location={location}>
+            <Routes>
+              @@REPLACER__PATHS
+            </Routes>
+          </StaticRouter>
+        }}
+        @@Frontend{{
+          <BrowserRouter>
+            <Routes>
+              @@REPLACER__PATHS
+            </Routes>
+          </BrowserRouter>
+        }}
+
+        @@Backend{{
+          <script src="@@REPLACER_FRONTEND_RENDERER"></script>
+        }}
+      @@IsStrict{{</StrictMode>}}
+    </App>
+  )
+}
