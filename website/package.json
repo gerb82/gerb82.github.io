@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node --import tsx/esm ./scripts/build.script.ts --script=START",
     "build": "node --import tsx/esm ./scripts/build.script.ts --script=BUILD",
-    "serve": ""
+    "serve": "node --import ./scripts/core/serve.hooks.mjs --import tsx/esm ./scripts/serve.script.tsx --port=6006 --pure-serve --root-serve-path=./dist,"
   },
   "dependencies": {
     "express": "^5.1.0",
@@ -23,10 +23,12 @@
     "@types/react-dom": "^19.1.2",
     "arg": "^5.0.2",
     "esbuild": "^0.25.3",
+    "esbuild-sass-plugin": "^3.3.1",
     "eslint": "^9.25.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.0.0",
     "nodemon": "^3.1.10",
+    "sass-embedded": "^1.87.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.0"

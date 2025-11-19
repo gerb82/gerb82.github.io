@@ -7,8 +7,8 @@ export const PageList = [@@REPLACER__ALL_PAGES]
 
 export function RenderSite(@@Backend{{ {location}: {location: string} }}) {
   return (
-    <App>
-      @@IsStrict{{<StrictMode>}}
+    @@IsStrict{{<StrictMode>}}
+      <App>
         @@Backend{{
           <StaticRouter location={location}>
             <Routes>
@@ -26,8 +26,10 @@ export function RenderSite(@@Backend{{ {location}: {location: string} }}) {
 
         @@Backend{{
           <script src="@@REPLACER_FRONTEND_RENDERER"></script>
+          <link rel="stylesheet" href="@@REPLACER_RENDERER_NAME"></link>
         }}
-      @@IsStrict{{</StrictMode>}}
-    </App>
+
+      </App>
+    @@IsStrict{{</StrictMode>}}
   )
 }

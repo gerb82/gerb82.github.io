@@ -39,7 +39,9 @@ const SITE_CONFIG = {
       frontendWatchPort: null,
       backendWatchPort: 4444,
     },
-    serveConfig: undefined,
+    serveConfig: {
+      port: 6006,
+    },
   },
 } as const satisfies {
   [Key in string]: BuildConfigType

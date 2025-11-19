@@ -1,0 +1,9 @@
+/* src/App.module.scss */
+.App_module_test {
+  color: green;
+}
+
+/* src/test-component/test-component.module.scss */
+.test_component_module_test {
+  color: red;
+}

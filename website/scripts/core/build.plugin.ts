@@ -55,12 +55,15 @@ export default function Engine_CorePlugin(
           )
           .replaceAll(
             '@@REPLACER_FRONTEND_RENDERER',
-            // TODO - make sure build mode version works nicely with all serve formats, maybe add option for this path
-            config.mode === 'WATCH' ? `http://localhost:${config.esbuild.frontendWatchPort}` : `./frontend-renderer.js`,
+            config.mode === 'WATCH' ? `http://localhost:${config.esbuild.frontendWatchPort}/renderer.js` : `./renderer.js`,
           )
           .replaceAll(
             '@@REPLACER_APP_ROOT_IMPORT',
             config.paths.appRootPath.replaceAll('\\', '\\\\'),
+          )
+          .replaceAll(
+            '@@REPLACER_RENDERER_NAME',
+            config.mode === 'WATCH' ? `http://localhost:${config.esbuild.frontendWatchPort}/renderer.css` : './renderer.css',
           )
           .replaceAll(
             /@@IsStrict{{(.*?)}}/gms,

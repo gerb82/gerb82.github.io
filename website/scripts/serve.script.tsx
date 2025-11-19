@@ -7,13 +7,13 @@ import React from 'react'
 import Arg from 'arg'
 
 const parsedArgs = Arg({
-  '--serve-path': String,
-  '--additional-serve-path': String,
+  '--root-serve-path': String,
+  '--public-serve-path': String,
   '--pure-serve': Boolean,
   '--port': Number,
 })
 
-if (!parsedArgs['--serve-path']) throw Error(`Please pass a valid --serve-path`)
+if (!parsedArgs['--root-serve-path']) throw Error(`Please pass a valid --root-serve-path`)
 if (!parsedArgs['--port']) throw Error(`Please pick a valid --port`)
 
 async function createServer() {
@@ -21,12 +21,11 @@ async function createServer() {
   const app = express()
 
   if (parsedArgs['--pure-serve']) {
-    app.use(express.static(parsedArgs['--serve-path']!, { maxAge: '7d' }))
+    // TODO - check if we need to potentially tell this to automatically resolve no suffix requests as .html
+    app.use(express.static(parsedArgs['--root-serve-path']!, { maxAge: '7d' }))
   }
   else {
-    console.log('Begin importing backend renderer')
-    const { RenderSite, PageList } = await import(parsedArgs['--serve-path']!) as typeof SiteRoot
-    console.log('Backend renderer imported')
+    const { RenderSite, PageList } = await import(parsedArgs['--root-serve-path']!) as typeof SiteRoot
 
     app.get('/.page-list', (req, res) => {
       res.send(renderToString(
@@ -36,13 +35,15 @@ async function createServer() {
       ))
     })
 
-    app.get('/{*splat}', (req, res) => {
+    app.get('/{*splat}', async (req, res) => {
+      // reject any request with a file extension to let another path handle them
+      if (req.path.match(/\.[a-z]+$/)) return
       res.send(
         renderToString(<RenderSite location={req.path} />), // .replace('head>', `head> <script src="${parsedArgs['--frontend-renderer-path']}"> </script>`),
       )
     })
 
-    if (parsedArgs['--additional-serve-path']) app.use(express.static(parsedArgs['--additional-serve-path'], { maxAge: '7d' }))
+    if (parsedArgs['--public-serve-path']) app.use(express.static(parsedArgs['--public-serve-path'], { maxAge: '7d' }))
   }
 
   app.listen(PORT, () => {

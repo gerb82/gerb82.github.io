@@ -47,8 +47,8 @@ declare module '@SiteRoot' {
 
     // --------- Serve Config ---------
 
-    /** [MODE=WATCH ONLY] The settings to use for the express server serving the live build */
-    serveConfig?: ServeConfigType
+    /** [GLOBAL] The settings to use for the express server serving the backend build */
+    serveConfig: ServeConfigType
   }
 
   type ServeConfigType = {
